@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Heebo', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
+  text-align: right;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-8 py-3 bg-lilac-300 text-gray-800 font-medium rounded-full
+           hover:bg-lilac-400 transition-all duration-300
+           hover:shadow-lg hover:shadow-lilac-300/30;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-3 border-2 border-lilac-300 text-gray-700 font-medium
+           rounded-full hover:bg-lilac-50 transition-all duration-300;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-semibold text-gray-800 mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-gray-500 text-lg max-w-2xl mx-auto;
+  }
+}

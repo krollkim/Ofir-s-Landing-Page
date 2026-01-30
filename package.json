@@ -1,7 +1,9 @@
 {
   "name": "ofirs-landing-page",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "Kim Kroll",
+  "description": "Landing page for Ofir - Better Together | Personal Coaching & Soulful Events for Women",
   "type": "module",
   "scripts": {
     "dev": "vite",

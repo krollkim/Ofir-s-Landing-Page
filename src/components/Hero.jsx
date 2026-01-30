@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, Heart } from 'lucide-react'
+import settings from '../content/settings.json'
 
 export default function Hero() {
   return (
@@ -31,15 +32,14 @@ export default function Hero() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight mb-6">
-            "כשנשים תומכות אחת בשנייה,
-            <span className="block text-lilac-400">דברים מדהימים קורים."</span>
+            {settings.hero_title_start}
+            <span className="block text-lilac-400">{settings.hero_title_highlight}</span>
           </h1>
 
           <p className="text-base text-gray-400 mb-8">— Maya Angelou</p>
 
           <p className="text-lg md:text-xl text-gray-500 max-w-3xl mx-auto mb-10 leading-relaxed">
-            אני מאמנת מנטלית לנשים ומנחה אירועי תנועה וריקוד מרפא.
-            אני עוזרת לנשים להתחבר לעצמן, לשחרר עומסים, להרגיש חופשיות בגוף וברגש.
+            {settings.hero_subtitle}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

@@ -1,25 +1,34 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Music, Users, Instagram, ArrowLeft } from 'lucide-react'
+import { Music, Users, Heart, Star, Instagram, ArrowLeft } from 'lucide-react'
+import eventsData from '../content/events.json'
 
-const tracks = [
-  {
-    icon: Music,
-    title: 'אירועי תנועה',
-    description: 'מרחב נשי שמחבר לגוף, משחרר אנרגיה ופותח את הלב דרך תנועה, מוסיקה, רגש וריפוי.',
-    category: 'מסלול 2',
-  },
-  {
-    icon: Users,
-    title: 'קהילה של נשים',
-    description: 'תמיכה, השראה, מסרים ומרחב נשי בטוח. מקום שמחבר נשים לעצמן ולדרך שלי.',
-    category: 'מסלול 3',
-  },
-]
+// Map icon names from CMS to actual Lucide components
+const iconMap = {
+  Music,
+  Users,
+  Heart,
+  Star,
+}
+
+// Category labels in Hebrew
+const categoryLabels = {
+  Movement: 'מסלול 2',
+  Community: 'מסלול 3',
+  Wellness: 'בריאות',
+  Fitness: 'כושר',
+}
 
 export default function Workshops() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+
+  const tracks = eventsData.events_list.map((event) => ({
+    icon: iconMap[event.icon] || Music,
+    title: event.title,
+    description: event.description,
+    category: categoryLabels[event.category] || event.category,
+  }))
 
   return (
     <section id="workshops" className="py-20 md:py-32 bg-white">

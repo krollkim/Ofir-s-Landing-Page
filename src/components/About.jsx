@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { CheckCircle } from 'lucide-react'
+import settings from '../content/settings.json'
 
 const benefits = [
   'לשחרר עומס רגשי',
@@ -32,8 +33,7 @@ export default function About() {
               אני אופיר
             </h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              נעים להכיר, אני אופיר. אני מלווה נשים בתהליכי ריפוי רגשי ומנטלי,
-              ויוצרת אירועי תנועה וריקוד שמשחררים את הגוף והנשמה.
+              {settings.about_text}
             </p>
             
             <p className="text-lilac-500 font-medium mb-8">

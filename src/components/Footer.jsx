@@ -72,7 +72,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm flex items-center gap-1">
-            &copy; {new Date().getFullYear()} {settings.footer_copyright}. נעשה עם
+            &copy; {new Date().getFullYear()} KIM KROLL. נעשה עם
             <Heart size={14} className="text-lilac-400 fill-lilac-400" />
           </p>
 

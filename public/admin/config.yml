@@ -37,7 +37,6 @@ collections:
           - { name: "training_subtitle", label: "Training Headline", widget: "string" }
           - { name: "training_description", label: "Training Description", widget: "text" }
           - { name: "footer_text", label: "Footer Tagline", widget: "text" }
-          - { name: "footer_copyright", label: "Copyright Text", widget: "string" }
 
       - name: "gallery"
         label: "Photo Gallery"

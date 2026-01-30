@@ -1,0 +1,39 @@
+{
+  "images": [
+    {
+      "image": "/images/IMG_9751.JPG.jpeg",
+      "alt": "אירוע תנועה קבוצתי",
+      "span": "col-span-2 row-span-2"
+    },
+    {
+      "image": "/images/IMG_9845.JPG.jpeg",
+      "alt": "סדנת יוגה",
+      "span": "col-span-1 row-span-1"
+    },
+    {
+      "image": "/images/IMG_1418.PNG",
+      "alt": "תנועה חופשית",
+      "span": "col-span-1 row-span-1"
+    },
+    {
+      "image": "/images/IMG_2455.JPG.jpeg",
+      "alt": "ליווי אישי",
+      "span": "col-span-2 row-span-1"
+    },
+    {
+      "image": "/images/IMG_2087.JPG.jpeg",
+      "alt": "מדיטציה",
+      "span": "col-span-1 row-span-1"
+    },
+    {
+      "image": "/images/IMG_2440.JPG.jpeg",
+      "alt": "מרחב נשי",
+      "span": "col-span-1 row-span-2"
+    },
+    {
+      "image": "/images/IMG_1419.PNG",
+      "alt": "רוגע ושלווה",
+      "span": "col-span-1 row-span-1"
+    }
+  ]
+}

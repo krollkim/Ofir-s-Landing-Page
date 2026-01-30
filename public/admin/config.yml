@@ -31,4 +31,23 @@ collections:
           - { name: "hero_title_start", label: "Hero Title (Start)", widget: "string", hint: "First part of the headline (dark text)" }
           - { name: "hero_title_highlight", label: "Hero Title (Highlight)", widget: "string", hint: "Second part of the headline (purple text)" }
           - { name: "hero_subtitle", label: "Hero Subtitle", widget: "text" }
+          - { name: "about_image", label: "About Me Profile Image", widget: "image" }
           - { name: "about_text", label: "About Text", widget: "text" }
+          - { name: "training_title", label: "Training Section Title", widget: "string" }
+          - { name: "training_subtitle", label: "Training Headline", widget: "string" }
+          - { name: "training_description", label: "Training Description", widget: "text" }
+          - { name: "footer_text", label: "Footer Tagline", widget: "text" }
+          - { name: "footer_copyright", label: "Copyright Text", widget: "string" }
+
+      - name: "gallery"
+        label: "Photo Gallery"
+        file: "src/content/gallery.json"
+        format: "json"
+        fields:
+          - name: "images"
+            label: "Gallery Images"
+            widget: "list"
+            fields:
+              - { name: "image", label: "Image", widget: "image" }
+              - { name: "alt", label: "Alt Text", widget: "string" }
+              - { name: "span", label: "Grid Size", widget: "select", options: ["col-span-1 row-span-1", "col-span-2 row-span-1", "col-span-1 row-span-2", "col-span-2 row-span-2"], default: "col-span-1 row-span-1", hint: "Controls how much space this image takes in the grid" }

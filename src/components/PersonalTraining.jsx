@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Heart, Sparkles, Shield, Sun, CheckCircle } from 'lucide-react'
+import settings from '../content/settings.json'
 
 const benefits = [
   {
@@ -49,12 +50,11 @@ export default function PersonalTraining() {
           className="text-center mb-16"
         >
           <span className="text-lilac-400 font-medium text-sm uppercase tracking-wider">
-            מסלול 1
+            {settings.training_title}
           </span>
-          <h2 className="section-title mt-2">אימון אישי לנשים</h2>
+          <h2 className="section-title mt-2">{settings.training_subtitle}</h2>
           <p className="section-subtitle">
-            תהליך אישי, עדין ומעמיק לשחרור רגשי, בניית בטחון, הצבת מטרה, ויצירת שקט פנימי.
-            אני מלווה נשים בשלבי שינוי, לחיבור לעצמן ולחיים בעוצמה.
+            {settings.training_description}
           </p>
         </motion.div>
 

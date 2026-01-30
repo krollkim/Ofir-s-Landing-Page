@@ -67,7 +67,7 @@ export default function About() {
           >
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-lilac-100">
               <img
-                src="/images/heroimage.PNG"
+                src={settings.about_image}
                 alt="אופיר - מאמנת מנטלית"
                 className="w-full h-full object-cover"
               />

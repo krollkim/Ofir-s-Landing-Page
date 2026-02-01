@@ -40,3 +40,218 @@ body {
     @apply text-gray-500 text-lg max-w-2xl mx-auto;
   }
 }
+
+/* ===== Accessibility Modes ===== */
+
+/* Large Text Mode */
+html.accessibility-large-text {
+  font-size: 125%;
+}
+
+html.accessibility-large-text body {
+  line-height: 1.7;
+}
+
+/* High Contrast Mode */
+html.accessibility-high-contrast {
+  --high-contrast-bg: #ffffff;
+  --high-contrast-text: #000000;
+  --high-contrast-accent: #7c3aed;
+}
+
+html.accessibility-high-contrast body {
+  background-color: var(--high-contrast-bg) !important;
+  color: var(--high-contrast-text) !important;
+}
+
+html.accessibility-high-contrast *:not([class*="accessibility-"]) {
+  border-color: var(--high-contrast-text) !important;
+}
+
+html.accessibility-high-contrast .text-gray-400,
+html.accessibility-high-contrast .text-gray-500,
+html.accessibility-high-contrast .text-gray-600 {
+  color: #1f2937 !important;
+}
+
+/* Only underline actual text links, not buttons */
+html.accessibility-high-contrast a:not(button):not(.accessibility-widget *) {
+  text-decoration: underline;
+}
+
+html.accessibility-high-contrast .bg-lilac-300:not(.accessibility-widget *),
+html.accessibility-high-contrast .bg-lilac-400:not(.accessibility-widget *),
+html.accessibility-high-contrast [class*="bg-lilac"]:not(.accessibility-widget *) {
+  background-color: var(--high-contrast-accent) !important;
+  color: #ffffff !important;
+}
+
+/* Ensure text and icons stay white on purple/accent backgrounds */
+html.accessibility-high-contrast .bg-lilac-300:not(.accessibility-widget *) *,
+html.accessibility-high-contrast .bg-lilac-400:not(.accessibility-widget *) *,
+html.accessibility-high-contrast [class*="bg-lilac"]:not(.accessibility-widget *) *,
+html.accessibility-high-contrast .btn-primary *,
+html.accessibility-high-contrast .btn-primary {
+  color: #ffffff !important;
+}
+
+html.accessibility-high-contrast .bg-lilac-300:not(.accessibility-widget *) svg,
+html.accessibility-high-contrast .bg-lilac-400:not(.accessibility-widget *) svg,
+html.accessibility-high-contrast [class*="bg-lilac"]:not(.accessibility-widget *) svg,
+html.accessibility-high-contrast .btn-primary svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+/* Fix button styling in high contrast */
+html.accessibility-high-contrast button:not(.accessibility-widget *) {
+  text-decoration: none !important;
+}
+
+html.accessibility-high-contrast .btn-primary:not(.accessibility-widget *),
+html.accessibility-high-contrast .btn-secondary:not(.accessibility-widget *) {
+  text-decoration: none !important;
+}
+
+html.accessibility-high-contrast .text-lilac-300,
+html.accessibility-high-contrast .text-lilac-400,
+html.accessibility-high-contrast .text-lilac-500,
+html.accessibility-high-contrast [class*="text-lilac"] {
+  color: var(--high-contrast-accent) !important;
+}
+
+html.accessibility-high-contrast .border-lilac-300,
+html.accessibility-high-contrast .border-lilac-400,
+html.accessibility-high-contrast [class*="border-lilac"] {
+  border-color: var(--high-contrast-accent) !important;
+}
+
+html.accessibility-high-contrast img {
+  filter: contrast(1.1);
+}
+
+/* Reduce Motion Mode */
+html.accessibility-reduce-motion,
+html.accessibility-reduce-motion * {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+html.accessibility-reduce-motion [style*="transform"],
+html.accessibility-reduce-motion [style*="opacity"] {
+  transition: none !important;
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not(.accessibility-reduce-motion) *,
+  html:not(.accessibility-reduce-motion) *::before,
+  html:not(.accessibility-reduce-motion) *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== Accessibility Widget Isolation - Must be LAST to override all above ===== */
+.accessibility-widget {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+
+/* Fixed dimensions for the menu panel */
+.accessibility-widget > div[role="dialog"],
+.accessibility-widget div[role="dialog"] {
+  width: 320px !important;
+  max-width: 320px !important;
+  min-width: 320px !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.accessibility-widget *,
+.accessibility-widget *::before,
+.accessibility-widget *::after {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  text-decoration: none !important;
+  filter: none !important;
+}
+
+/* Keep widget animations working */
+.accessibility-widget [class*="transition"],
+.accessibility-widget [class*="duration"] {
+  transition-duration: 0.2s !important;
+}
+
+/* ===== Force Widget to IGNORE High Contrast Mode ===== */
+
+/* Reset all text colors inside widget */
+.accessibility-widget .text-gray-400 { color: #9ca3af !important; }
+.accessibility-widget .text-gray-500 { color: #6b7280 !important; }
+.accessibility-widget .text-gray-600 { color: #4b5563 !important; }
+.accessibility-widget .text-gray-700 { color: #374151 !important; }
+.accessibility-widget .text-gray-800 { color: #1f2937 !important; }
+
+/* Reset lilac colors */
+.accessibility-widget .text-lilac-400 { color: #c48dd4 !important; }
+.accessibility-widget .text-lilac-500 { color: #a85fc0 !important; }
+.accessibility-widget .text-lilac-600 { color: #8d42a3 !important; }
+.accessibility-widget .text-lilac-700 { color: #753586 !important; }
+
+/* Reset background colors */
+.accessibility-widget .bg-white,
+.accessibility-widget .bg-white\/95 { background-color: rgba(255, 255, 255, 0.95) !important; }
+.accessibility-widget .bg-gray-50 { background-color: #f9fafb !important; }
+.accessibility-widget .bg-gray-100 { background-color: #f3f4f6 !important; }
+.accessibility-widget .bg-gray-300 { background-color: #d1d5db !important; }
+.accessibility-widget .bg-lilac-50 { background-color: #faf5fc !important; }
+.accessibility-widget .bg-lilac-100 { background-color: #f5ebf9 !important; }
+.accessibility-widget .bg-lilac-200 { background-color: #ead6f2 !important; }
+.accessibility-widget .bg-lilac-300 { background-color: #D8B4E2 !important; }
+.accessibility-widget .bg-lilac-400 { background-color: #c48dd4 !important; }
+
+/* Reset border colors */
+.accessibility-widget .border-lilac-100 { border-color: #f5ebf9 !important; }
+.accessibility-widget .border-lilac-200 { border-color: #ead6f2 !important; }
+.accessibility-widget .border-lilac-300 { border-color: #D8B4E2 !important; }
+.accessibility-widget .border-lilac-400 { border-color: #c48dd4 !important; }
+
+/* Trigger button - keep icon dark/purple */
+.accessibility-widget > button svg {
+  color: #1f2937 !important;
+  stroke: #1f2937 !important;
+}
+
+/* Widget panel SVG icons - keep them the correct colors */
+.accessibility-widget div[role="dialog"] svg {
+  color: inherit !important;
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+/* Header icon should be lilac */
+.accessibility-widget .text-lilac-500 svg {
+  color: #a85fc0 !important;
+}
+
+/* Custom scrollbar for accessibility menu */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #D8B4E2;
+}

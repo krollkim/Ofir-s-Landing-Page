@@ -58,6 +58,7 @@ export default function Footer() {
                 href="https://instagram.com/betterher__together"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="אינסטגרם - betterher__together"
                 className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-lilac-300 transition-colors group inline-flex"
               >
                 <Instagram

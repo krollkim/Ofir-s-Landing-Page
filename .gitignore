@@ -46,3 +46,4 @@ coverage
 .eslintcache
 *.pem
 Thumbs.db
+config.bat

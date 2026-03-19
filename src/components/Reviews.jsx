@@ -1,6 +1,10 @@
-import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const reviews = [
   {
@@ -27,27 +31,46 @@ const reviews = [
 ]
 
 export default function Reviews() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const sectionRef = useRef(null)
+  const headerRef = useRef(null)
+  const cardRefs = useRef([])
+  const mobileCardRef = useRef(null)
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const nextReview = () => {
-    setActiveIndex((prev) => (prev + 1) % reviews.length)
-  }
+  const nextReview = () => setActiveIndex((prev) => (prev + 1) % reviews.length)
+  const prevReview = () => setActiveIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
 
-  const prevReview = () => {
-    setActiveIndex((prev) => (prev - 1 + reviews.length) % reviews.length)
-  }
+  useGSAP(() => {
+    const trigger = { trigger: sectionRef.current, start: 'top 80%', once: true, invalidateOnRefresh: true }
+
+    gsap.fromTo(headerRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', force3D: true, scrollTrigger: trigger }
+    )
+
+    gsap.fromTo(cardRefs.current,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', force3D: true,
+        stagger: 0.1,
+        delay: 0.1,
+        scrollTrigger: trigger,
+      }
+    )
+
+    gsap.fromTo(mobileCardRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', force3D: true, scrollTrigger: trigger }
+    )
+  }, [])
 
   return (
     <section id="reviews" className="py-20 md:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+      <div ref={sectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          ref={headerRef}
           className="text-center mb-16"
+          style={{ opacity: 0, willChange: 'transform, opacity' }}
         >
           <span className="text-lilac-400 font-medium text-sm uppercase tracking-wider">
             Testimonials
@@ -57,31 +80,22 @@ export default function Reviews() {
             Real stories from real people who have transformed their lives through
             our programs.
           </p>
-        </motion.div>
+        </div>
 
         {/* Desktop Grid View */}
         <div className="hidden md:grid md:grid-cols-3 gap-8">
           {reviews.map((review, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * index }}
+              ref={(el) => (cardRefs.current[index] = el)}
               className="bg-slate-50 rounded-2xl p-8 relative"
+              style={{ opacity: 0, willChange: 'transform, opacity' }}
             >
-              <Quote
-                size={40}
-                className="absolute top-6 right-6 text-lilac-200"
-              />
+              <Quote size={40} className="absolute top-6 right-6 text-lilac-200" />
 
-              {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {[...Array(review.rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={18}
-                    className="fill-lilac-400 text-lilac-400"
-                  />
+                  <Star key={i} size={18} className="fill-lilac-400 text-lilac-400" />
                 ))}
               </div>
 
@@ -98,31 +112,22 @@ export default function Reviews() {
                   <p className="text-sm text-gray-500">{review.role}</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Mobile Carousel View */}
         <div className="md:hidden">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
+          <div
+            ref={mobileCardRef}
             className="bg-slate-50 rounded-2xl p-6 relative"
+            style={{ opacity: 0, willChange: 'transform, opacity' }}
           >
-            <Quote
-              size={32}
-              className="absolute top-4 right-4 text-lilac-200"
-            />
+            <Quote size={32} className="absolute top-4 right-4 text-lilac-200" />
 
-            {/* Stars */}
             <div className="flex gap-1 mb-4">
               {[...Array(reviews[activeIndex].rating)].map((_, i) => (
-                <Star
-                  key={i}
-                  size={16}
-                  className="fill-lilac-400 text-lilac-400"
-                />
+                <Star key={i} size={16} className="fill-lilac-400 text-lilac-400" />
               ))}
             </div>
 
@@ -137,15 +142,11 @@ export default function Reviews() {
                 className="w-12 h-12 rounded-full object-cover"
               />
               <div>
-                <p className="font-semibold text-gray-800">
-                  {reviews[activeIndex].name}
-                </p>
-                <p className="text-sm text-gray-500">
-                  {reviews[activeIndex].role}
-                </p>
+                <p className="font-semibold text-gray-800">{reviews[activeIndex].name}</p>
+                <p className="text-sm text-gray-500">{reviews[activeIndex].role}</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Navigation */}
           <div className="flex items-center justify-center gap-4 mt-6">

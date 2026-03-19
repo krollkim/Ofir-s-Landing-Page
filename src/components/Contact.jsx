@@ -1,23 +1,40 @@
-import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Mail, Phone, MapPin, Instagram, MessageCircle } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const PHONE_NUMBER = '972502507066'
 const WHATSAPP_MESSAGE = 'היי אופיר! הגעתי מהאתר ואשמח לשמוע עוד על התהליכים שלך 💜'
 
 export default function Contact() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const sectionRef = useRef(null)
+  const headerRef = useRef(null)
+  const cardRef = useRef(null)
+
+  useGSAP(() => {
+    const trigger = { trigger: sectionRef.current, start: 'top 80%', once: true, invalidateOnRefresh: true }
+
+    gsap.fromTo(headerRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', force3D: true, scrollTrigger: trigger }
+    )
+
+    gsap.fromTo(cardRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: 'power2.out', force3D: true, scrollTrigger: trigger }
+    )
+  }, [])
 
   return (
     <section id="contact" className="py-20 md:py-32 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+      <div ref={sectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          ref={headerRef}
           className="text-center mb-12"
+          style={{ opacity: 0, willChange: 'transform, opacity' }}
         >
           <span className="text-lilac-400 font-medium text-sm uppercase tracking-wider">
             צרי קשר
@@ -26,14 +43,13 @@ export default function Contact() {
           <p className="section-subtitle">
             מוכנה להתחיל את המסע שלך? אני כאן בשבילך.
           </p>
-        </motion.div>
+        </div>
 
         {/* Contact Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <div
+          ref={cardRef}
           className="max-w-2xl mx-auto"
+          style={{ opacity: 0, willChange: 'transform, opacity' }}
         >
           <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm">
             {/* Contact Methods Grid */}
@@ -102,22 +118,19 @@ export default function Contact() {
               <p className="text-gray-500 mb-4">
                 הדרך הכי מהירה ליצור קשר
               </p>
-              <motion.a
+              <a
                 href={`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-lilac-300 text-gray-800 font-medium rounded-full hover:bg-lilac-400 transition-colors shadow-lg shadow-lilac-300/30"
               >
                 <MessageCircle size={22} />
                 שלחי הודעה בוואטסאפ
-              </motion.a>
+              </a>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
-
-          </section>
+    </section>
   )
 }

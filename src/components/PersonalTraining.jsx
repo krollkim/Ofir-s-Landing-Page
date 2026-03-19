@@ -1,7 +1,11 @@
-import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { Heart, Sparkles, Shield, Sun, CheckCircle } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 import settings from '../content/settings.json'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const benefits = [
   {
@@ -36,18 +40,42 @@ const includes = [
 ]
 
 export default function PersonalTraining() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const sectionRef = useRef(null)
+  const headerRef = useRef(null)
+  const cardRefs = useRef([])
+  const packageRef = useRef(null)
+
+  useGSAP(() => {
+    const trigger = { trigger: sectionRef.current, start: 'top 80%', once: true, invalidateOnRefresh: true }
+
+    gsap.fromTo(headerRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', force3D: true, scrollTrigger: trigger }
+    )
+
+    gsap.fromTo(cardRefs.current,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', force3D: true,
+        stagger: 0.1,
+        delay: 0.2,
+        scrollTrigger: trigger,
+      }
+    )
+
+    gsap.fromTo(packageRef.current,
+      { opacity: 0, x: -30 },
+      { opacity: 1, x: 0, duration: 0.6, delay: 0.4, ease: 'power2.out', force3D: true, scrollTrigger: trigger }
+    )
+  }, [])
 
   return (
     <section id="training" className="py-20 md:py-32 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+      <div ref={sectionRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          ref={headerRef}
           className="text-center mb-16"
+          style={{ opacity: 0, willChange: 'transform, opacity' }}
         >
           <span className="text-lilac-400 font-medium text-sm uppercase tracking-wider">
             {settings.training_title}
@@ -56,39 +84,32 @@ export default function PersonalTraining() {
           <p className="section-subtitle">
             {settings.training_description}
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Benefits Cards */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid sm:grid-cols-2 gap-6"
-          >
+          <div className="grid sm:grid-cols-2 gap-6">
             {benefits.map((benefit, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                ref={(el) => (cardRefs.current[index] = el)}
                 className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow"
+                style={{ opacity: 0, willChange: 'transform, opacity' }}
               >
                 <div className="w-12 h-12 bg-lilac-100 rounded-xl flex items-center justify-center mb-4">
                   <benefit.icon size={24} className="text-lilac-500" />
                 </div>
                 <h3 className="font-semibold text-gray-800 mb-2">{benefit.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{benefit.description}</p>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Package Card */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
+          <div
+            ref={packageRef}
             className="bg-white rounded-2xl p-8 shadow-sm border border-lilac-100"
+            style={{ opacity: 0, willChange: 'transform, opacity' }}
           >
             <div className="mb-6">
               <h3 className="text-xl font-semibold text-gray-800">תהליך אימון אישי</h3>
@@ -113,7 +134,7 @@ export default function PersonalTraining() {
             >
               קבעי שיחת התאמה
             </a>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

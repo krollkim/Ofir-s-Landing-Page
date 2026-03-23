@@ -73,7 +73,16 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm flex items-center gap-1">
-            &copy; {new Date().getFullYear()} KIM KROLL. נעשה עם
+            &copy; {new Date().getFullYear()}{' '}
+            <a
+              href="https://smileysolution.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-lilac-300 transition-colors"
+            >
+              Smiley Solution
+            </a>
+            . נעשה עם
             <Heart size={14} className="text-lilac-400 fill-lilac-400" />
           </p>
 

@@ -195,7 +195,7 @@ export default function AccessibilityMenu() {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-8 left-8 z-[90] w-16 h-16 rounded-full
+        className="fixed bottom-4 left-4 z-[90] w-14 h-14 md:bottom-8 md:left-8 md:w-16 md:h-16 rounded-full
           bg-lilac-300 border border-lilac-400
           flex items-center justify-center cursor-pointer
           hover:bg-lilac-400 hover:scale-105
@@ -204,7 +204,7 @@ export default function AccessibilityMenu() {
         aria-label="אפשרויות נגישות"
         aria-expanded={isOpen}
       >
-        <Accessibility className="w-8 h-8 text-gray-800" />
+        <Accessibility className="w-7 h-7 md:w-8 md:h-8 text-gray-800" />
       </button>
 
       {/* Backdrop */}
